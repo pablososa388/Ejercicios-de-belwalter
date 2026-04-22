@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, shuffle
 from stack import Stack
 
 ##Reemplazar todas las ocurrencias de un determinado elemento en una pila.
@@ -125,7 +125,7 @@ else:
 """
 
 ##6. Leer una palabra y visualizarla en forma inversa.
-
+"""
 pila= Stack()
 
 palabra=input("ingrese una palabra: ")
@@ -140,5 +140,141 @@ for letra in palabra:
 while pila.size()>0:
     print(pila.pop(), end="")
     
+"""
+#Eliminar el i-ésimo elemento debajo de la cima de una pila de palabras.
+
+"""
+pila= Stack()
+pilaux= Stack()
+
+for i in range(10):
+    pila.push(randint(1,10))
+print("elementos de la pila:")
+pila.show()
+print()
+
+buscado=int(input("ingrese el número de la posición de la pila que desea eliminar:"))
+cont=0
+while cont!=buscado-1:
+    valaux =pila.pop()
+    pilaux.push(valaux)
+    cont+=1
+
+pila.pop()
+
+while pila.size()>0:
+    valaux=pila.pop()
+    pilaux.push(valaux)
 
 
+while pilaux.size()>0:
+    valaux=pilaux.pop()
+    pila.push(valaux)
+
+print(f"pila sin el término i-ésimo {buscado} eliminado:")
+pila.show()
+"""
+##Dada una pila de cartas de las cuales se conoce su número y palo,–que representa un mazo de
+##cartas de baraja española–,resolver las siguientes actividades:
+##a. generar las cartas del mazo de forma aleatoria;
+##b. separar la pila mazo en cuatro pilas una por cada palo;
+##c. ordenar una de las cuatro pilas (espada, basto, copa u oro) de manera creciente.
+
+class Cartas:
+    def __init__(self, palo, numero):
+        self.palo= palo
+        self.numero= numero
+
+class Mazo:
+    def __init__(self):
+        self.cartas= Stack()
+        self.pilaoro=Stack()
+        self.pilaespada= Stack()
+        self.pilabasto= Stack()
+        self.pilacopa= Stack()
+        
+
+
+
+    def generar(self):
+        listaux=[]
+        palos=["oro","espada","basto","copa"]
+        for palo in palos:
+            for numero in range (1,13):
+
+                carta= Cartas(palo, numero)
+
+                listaux.append(carta)
+        shuffle(listaux)
+        for carta in listaux:
+            self.cartas.push(carta)##me mete todas las cartubis en el Stack de pila
+
+
+    def separar4palos(self):
+        
+        while self.cartas.size()>0:
+            carta=self.cartas.pop()
+            if carta.palo=="oro":
+                self.pilaoro.push(carta)
+            elif carta.palo=="espada":
+                self.pilaespada.push(carta)
+            elif carta.palo=="basto":
+                self.pilabasto.push(carta)
+            else:
+                self.pilacopa.push(carta)
+    
+                
+
+    def ordenar1de4(self):
+        pilaux= Stack()
+        while self.pilaoro.size()> 0:
+            temporal=self.pilaoro.pop()
+            while pilaux.size()>0 and pilaux.on_top().numero>temporal.numero:
+                temporal2=pilaux.pop()
+                self.pilaoro.push(temporal2)
+        
+            pilaux.push(temporal)
+        
+        while pilaux.size() > 0:
+            self.pilaoro.push(pilaux.pop())
+
+
+
+
+    def showcartas(self):
+        auxiliar=Stack()
+
+        while self.cartas.size()>0:
+            cartilla=self.cartas.pop()
+            print(cartilla.numero,cartilla.palo)
+            auxiliar.push(cartilla)
+
+        while auxiliar.size()>0:
+            cartilla=auxiliar.pop()
+            self.cartas.push(cartilla)
+
+    def showoro(self):
+        auxiliar=Stack()
+
+        while self.pilaoro.size()>0:
+            cartilla=self.pilaoro.pop()
+            print(cartilla.numero,cartilla.palo)
+            auxiliar.push(cartilla)
+
+        while auxiliar.size()>0:
+            cartilla=auxiliar.pop()
+            self.pilaoro.push(cartilla)
+
+
+
+
+mazo = Mazo()
+mazo.generar()
+print("mazo completo:")
+mazo.showcartas()
+mazo.separar4palos()
+print("pila oro antes de ordenar:")
+mazo.showoro()
+mazo.ordenar1de4()
+print("pila oro ordenada:")
+mazo.showoro()

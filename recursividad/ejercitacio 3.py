@@ -1,3 +1,4 @@
+import random
 """
 Implementar una función que calcule la suma de todos los números enteros comprendidos
 entre cero y un número entero positivo dado.
@@ -180,7 +181,11 @@ print (inversion(num))
 ##c. Utilizar un vector para representar la mochila.
 
 
-mochila= ["sable de luz","guantes", "agua", "sanguche", "sable de madera","mapa", "cigarrillo"]
+mochila= ["manzana","guantes", "agua", "sanguche", "sable de madera","mapa", "cigarrillo"]
+if random.choice([True,False]):
+    mochila.append("sable de luz")
+
+random.shuffle(mochila)
 cont=-1
 
 def usar_la_fuerza(cont:int, mochila: list)-> str:
