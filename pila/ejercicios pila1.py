@@ -92,53 +92,51 @@ print()
 pilaux.show()
 """
  ##0Determinar si una cadena de caracteres es un palíndromo.
-##por como lo entiendo, corregime si ves que estoy errado, puedo hacerlo de 2 formas:
-##1-cargar una lista como dijimos antes y permitir a un usuario ver esa lista (pila) para elegir una palabra determinada y luego hacer lo necesario par aver si es o no palindromo
-##2-no pedirle nada al usuario, con las palabras cargadas, evaluarlas todas directamente  guardar en una pila_aux los palindromos encontrados
 
-"""
 pila=Stack()
 pilaux= Stack()
 pilaux2= Stack()
 
-buscado=input("ingrese una palabra de la lista para ver si es un palíndromo: ")
+buscado=input("ingrese una palabra de la lista para ver si es un palíndromo: ") #buscas la palabra
 
-for letra in buscado:
-    pila.push(letra)
-    pilaux.push(letra)
+for letra in buscado:#acá PY lo que hace por defecto es iterar los caracteres del string, por eso no estas metiendo un solo elemento (o sea palabra) a la pila, sino que estas metiendo CADA caracter como un elemento distinto
+    pila.push(letra)#aca mandé a dos pilas diferentes la misma palabra para poder compararla invertida
+    pilaux.push(letra)#como no la popeaste de otra pila a la palabra, los caracteres van a mantener el orden normal, es decir, no estan invertidos en ninguna de las dos pilas
 
-while pilaux.size()>0:
+while pilaux.size()>0:#acá se invierte automaticamente cuando la popeas y la pusheas a una auxiliar
     valaux=pilaux.pop()
     pilaux2.push(valaux)
 
 
-palindromo= True
+palindromo= True#aca lo pongo como verdadero al palindromo
 
 while pila.size()>0 and pilaux2.size()>0:
-    if pila.pop()!=pilaux2.pop():
-        palindromo= False
+    if pila.pop()!=pilaux2.pop():#acá comparo las dos pilas, una que quedo tal cual como la metimos en el for (pila) y otra invertida (pilaux)
+        palindromo= False#si al popearlas y compararlas son distintas palindromo es falso
 
-if palindromo:
+if palindromo:#acá afuera del while directamente pongo que si es true entonces evidentemente era palindromo la palabra
     print(f"la palabra {buscado} es un palíndromo")
-else: 
+else: # y si no se cumple que sean iguales entonces no es:
     print(f"la palabra {buscado} no es un palíndromo")
-"""
+##comentario a parte, me olvide de retornar los elementos a la pila original pero me da paja pq necesitaria 2 variables auxiliares en el último while
 
 ##6. Leer una palabra y visualizarla en forma inversa.
 
-pila= Stack()
+# pila= Stack()
 
-palabra=input("ingrese una palabra: ")
+# palabra=input("ingrese una palabra: ")
 
-print(f"usted ingresó {palabra}")
+# print(f"usted ingresó {palabra}")
 
-print (f"asi se visualiza invertida")
+# print (f"asi se visualiza invertida")
 
-for letra in palabra:
-    pila.push(letra)
+# for letra in palabra:
+#     pila.push(letra)
 
-while pila.size()>0:
-    print(pila.pop(), end="")
+# while pila.size()>0:
+#     print(pila.pop(), end="")
     
+
+
 
 
